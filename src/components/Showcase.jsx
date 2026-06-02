@@ -1,4 +1,29 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useMediaQuery } from "react-responsive";
+
 const Showcase = () => {
+    const isTablet = useMediaQuery({ query: '(max-width: 1024px)'});
+
+    useGSAP(() => {
+        if(!isTablet) {
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#showcase',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                    pin: true,
+                }
+            });
+
+            timeline
+                .to('.mask img', {
+                    transform: 'scale(1.1)'
+                }).to('.content', { opacity: 1, y: 0, ease: 'power1.in' });
+        }
+    }, [isTablet])
+
   return (
     <section id="showcase">
       <div className="media">
@@ -15,7 +40,7 @@ const Showcase = () => {
 
             <div className="space-y-5 mt-7 pe-10">
               <p>
-                Conheça o {" "}
+                Conheça o{" "}
                 <span className="text-white">
                   M4, a nova geração do Apple silicon
                 </span>
