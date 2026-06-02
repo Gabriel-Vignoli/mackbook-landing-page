@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 const useMacbookStore = create((set) => ({
     color: '#2e2c2e',
