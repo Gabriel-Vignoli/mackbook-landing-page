@@ -3,33 +3,34 @@ import gsap from "gsap";
 import { useMediaQuery } from "react-responsive";
 
 const Showcase = () => {
-    const isTablet = useMediaQuery({ query: '(max-width: 1024px)'});
+  const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
-    useGSAP(() => {
-        if(!isTablet) {
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#showcase',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                    pin: true,
-                }
-            });
+  useGSAP(() => {
+    if (!isTablet) {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#showcase",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+          pin: true,
+        },
+      });
 
-            timeline
-                .to('.mask img', {
-                    scale: 1.1
-                }).to('.content', { opacity: 1, y: 0, ease: 'power1.in' });
-        }
-    }, [isTablet])
+      timeline
+        .to(".mask img", {
+          transform: "scale(1.1)",
+        })
+        .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
+    }
+  }, [isTablet]);
 
   return (
     <section id="showcase">
       <div className="media">
-        <video src="/videos/game.mp4" loop muted autoPlay playsInline></video>
+        <video src="/videos/game.mp4" loop muted autoPlay playsInline />
         <div className="mask">
-          <img src="/mask-logo.svg" alt="" />
+          <img src="/mask-logo.svg" />
         </div>
       </div>
 
@@ -42,7 +43,7 @@ const Showcase = () => {
               <p>
                 Conheça o{" "}
                 <span className="text-white">
-                  M4, a nova geração do Apple silicon
+                  M4, a nova geração do Apple silicon{" "}
                 </span>
                 . O M4 impulsiona
               </p>
@@ -58,6 +59,7 @@ const Showcase = () => {
                 console para as suas mãos.
               </p>
               <p className="text-primary">
+                {" "}
                 Saiba mais sobre o Apple Intelligence
               </p>
             </div>
