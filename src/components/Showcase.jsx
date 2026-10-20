@@ -15,7 +15,7 @@ const Showcase = () => {
     () => {
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1025px)", () => {
+      mm.add("(min-width: 1024px)", () => {
         gsap
           .timeline({
             scrollTrigger: {
@@ -24,10 +24,15 @@ const Showcase = () => {
               end: "bottom top",
               scrub: true,
               pin: true,
+              invalidateOnRefresh: true,
             },
           })
           .to(".mask img", { scale: 1.1 })
-          .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
+          .fromTo(
+            ".content",
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, ease: "power1.in" },
+          );
       });
 
       return () => mm.revert();
@@ -69,6 +74,7 @@ const Showcase = () => {
           playsInline
           preload="auto"
           aria-hidden="true"
+          onLoadedMetadata={() => ScrollTrigger.refresh()}
         />
         <div className="mask">
           <img src="/mask-logo.svg" alt="" aria-hidden="true" />
