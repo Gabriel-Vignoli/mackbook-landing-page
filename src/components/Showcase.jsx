@@ -1,35 +1,77 @@
+import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useMediaQuery } from "react-responsive";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Showcase = () => {
-    const isTablet = useMediaQuery({ query: '(max-width: 1024px)'});
+  const sectionRef = useRef(null);
+  const videoRef = useRef(null);
 
-    useGSAP(() => {
-        if(!isTablet) {
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#showcase',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                    pin: true,
-                }
-            });
+  // Only animate on desktop. matchMedia cleans up the pin when the
+  // breakpoint changes, which useMediaQuery + a conditional didn't do.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
 
-            timeline
-                .to('.mask img', {
-                    scale: 1.1
-                }).to('.content', { opacity: 1, y: 0, ease: 'power1.in' });
+      mm.add("(min-width: 1025px)", () => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+              pin: true,
+            },
+          })
+          .to(".mask img", { scale: 1.1 })
+          .to(".content", { opacity: 1, y: 0, ease: "power1.in" });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
+
+  // Play only while visible. A looping video that keeps decoding offscreen
+  // (especially under a pinned ScrollTrigger) is a common cause of stutter and crashes.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
         }
-    }, [isTablet])
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="showcase">
+    <section id="showcase" ref={sectionRef}>
       <div className="media">
-        <video src="/videos/game.mp4" loop muted autoPlay playsInline></video>
+        <video
+          ref={videoRef}
+          src="/videos/game-optimized.mp4"
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
         <div className="mask">
-          <img src="/mask-logo.svg" alt="" />
+          <img src="/mask-logo.svg" alt="" aria-hidden="true" />
         </div>
       </div>
 
@@ -80,4 +122,5 @@ const Showcase = () => {
     </section>
   );
 };
+
 export default Showcase;
