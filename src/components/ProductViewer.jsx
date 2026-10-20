@@ -13,14 +13,13 @@ const ProductViewer = () => {
 
   return (
     <section id="product-viewer">
-      <h2>Take a closer look.</h2>
-
+      <h2>Dê uma olhada mais de perto.</h2>
       <div className="controls">
         <p className="info">
           MacBook Pro | Disponível em 14" e 16" nas cores Cinza Espacial e Preto
           Espacial
         </p>
-        
+
         <div className="flex-center gap-5 mt-5">
           <div className="color-control">
             <div
