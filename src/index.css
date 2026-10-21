@@ -296,55 +296,49 @@ body {
   }
 
   #highlights {
-    @apply container mx-auto lg:py-40 max-lg:px-5;
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 xl:px-10 py-20 lg:py-32 2xl:py-40;
 
     h2 {
-      @apply text-white font-semibold text-3xl lg:text-7xl text-center max-w-3xl mx-auto;
+      @apply text-white font-semibold text-3xl md:text-5xl xl:text-6xl 2xl:text-7xl text-center max-w-3xl mx-auto text-balance;
     }
 
     h3 {
-      @apply text-[#F5F5F7] font-semibold text-xl lg:text-3xl text-center mt-10;
+      @apply text-[#F5F5F7] font-semibold text-xl lg:text-2xl 2xl:text-3xl text-center mt-6 lg:mt-10;
     }
 
     .masonry {
-      @apply grid grid-cols-1 lg:grid-cols-2 gap-5 mt-20 text-[#F5F5F7];
+      @apply grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-5 mt-12 lg:mt-20 text-[#F5F5F7];
+
+      .left-column,
+      .right-column {
+        @apply flex flex-col justify-between gap-4 xl:gap-5 min-w-0;
+      }
 
       .left-column {
-        @apply flex flex-col justify-between gap-5 opacity-0 -translate-y-5;
-
         div:first-of-type {
-          @apply h-full bg-[url(/highlight-bg.png)] bg-no-repeat bg-cover p-10 2xl:pt-32 lg:pt-20 rounded-3xl;
+          @apply h-full bg-[url(/highlight-bg.png)] bg-no-repeat bg-cover p-6 xl:p-10 lg:pt-16 2xl:pt-32 rounded-3xl;
 
           p {
-            @apply font-semibold text-4xl max-w-2xs;
+            @apply font-semibold text-2xl xl:text-3xl 2xl:text-4xl max-w-2xs;
           }
         }
 
-        p {
-          @apply font-semibold text-4xl max-w-2xs;
-        }
-
         div:last-of-type {
-          @apply bg-[#1D1D1F] p-10 rounded-3xl flex items-center gap-7;
+          @apply bg-[#1D1D1F] p-6 xl:p-10 rounded-3xl flex items-center gap-5 xl:gap-7;
 
           p {
-            @apply font-semibold lg:text-2xl 2xl:text-3xl;
+            @apply font-semibold text-xl xl:text-2xl 2xl:text-3xl;
           }
         }
       }
 
       .right-column {
-        @apply flex flex-col justify-between gap-5 opacity-0 -translate-y-5;
-
-        p {
-          @apply font-semibold text-4xl max-w-2xs;
-        }
         .apple-gradient {
-          @apply p-10 rounded-3xl flex items-center gap-7 relative;
+          @apply p-6 xl:p-10 rounded-3xl flex items-center gap-5 xl:gap-7 relative;
 
           background: #1d1d1f;
-          background-clip: padding-box; /* !important */
-          border: 3px solid transparent; /* !important */
+          background-clip: padding-box;
+          border: 3px solid transparent;
 
           ::before {
             content: "";
@@ -352,8 +346,8 @@ body {
             position: absolute;
             inset: 0px;
             z-index: -1;
-            margin: -5px; /* !important */
-            border-radius: 24px; /* !important */
+            margin: -5px;
+            border-radius: 24px;
             background: linear-gradient(
               91deg,
               #0096ff 0%,
@@ -364,7 +358,7 @@ body {
           }
 
           p {
-            @apply font-semibold lg:text-2xl 2xl:text-3xl;
+            @apply font-semibold text-xl xl:text-2xl 2xl:text-3xl;
 
             span {
               background: linear-gradient(
@@ -382,10 +376,10 @@ body {
         }
 
         div:last-of-type {
-          @apply h-full bg-[#1D1D1F] p-10 2xl:pt-32 lg:pt-20 rounded-3xl;
+          @apply h-full bg-[#1D1D1F] p-6 xl:p-10 lg:pt-16 2xl:pt-32 rounded-3xl;
 
           p {
-            @apply font-semibold text-4xl max-w-sm;
+            @apply font-semibold text-2xl xl:text-3xl 2xl:text-4xl max-w-sm;
 
             .green-gradient {
               background: linear-gradient(90deg, #35a98a 0%, #6dd400 100%);
